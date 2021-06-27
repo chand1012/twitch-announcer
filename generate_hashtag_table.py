@@ -27,10 +27,20 @@ twitch = Helix(client_id=os.getenv('TWITCH_CLIENT_KEY'), client_secret=os.getenv
 
 data = {}
 
+with open('hashtags.json') as f:
+    data = json.loads(f.read())
+
 for game_name in games:
     game = twitch.game(name=game_name)
+
     if game is None:
         print(f'Could not find game for {game_name}, skipping...')
+        continue
+
+    # this is so that repeats get skipped
+    if game.id in data:
+        continue
+
     default = re.sub(r'[^A-Za-z0-9]+', '', game.name)
     # add any additional hashtags that you want on all 
     # games after {default}
