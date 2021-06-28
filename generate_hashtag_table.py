@@ -5,6 +5,8 @@ import re
 from twitch import Helix
 import dotenv
 
+from hashtags import get_hashtags, set_hashtags
+
 dotenv.load_dotenv()
 
 # add all the games you play here and run the script
@@ -25,10 +27,7 @@ games = [
 # the .env file must exists and have the client key and secret populated for this to work.
 twitch = Helix(client_id=os.getenv('TWITCH_CLIENT_KEY'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
 
-data = {}
-
-with open('hashtags.json') as f:
-    data = json.loads(f.read())
+data = get_hashtags('hashtags.json')
 
 for game_name in games:
     game = twitch.game(name=game_name)
@@ -47,5 +46,4 @@ for game_name in games:
     # add any hashtag per-game to 'hashtags.json'
     data[game.id] = f'#{default} ' 
 
-with open('hashtags.json', 'w') as f:
-    f.write(json.dumps(data, indent=4))
+set_hashtags(data, 'hashtags.json')
