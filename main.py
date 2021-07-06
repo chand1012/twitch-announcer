@@ -7,18 +7,23 @@ from icecream import ic
 
 from hashtags import get_hashtags, append_hashtag
 from discord_hook import send_hook as discord_hook
+import twitter
+
+print('Initializing....')
 
 dotenv.load_dotenv()
 
 # set to 10 for faster debugging
 # make this an environment variable at some point
-WAIT = 10 #60 
+WAIT = 60 
 
-STREAMER = 'dogdog' #os.getenv('TWITCH_USERNAME')
+STREAMER = os.getenv('TWITCH_USERNAME')
 
 twitch_client = twitch.Helix(client_id=os.getenv('TWITCH_CLIENT_KEY'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
 
 isLive = False
+
+print('Waiting...')
 
 while True:
     hashtags = get_hashtags(filename='hashtags.json')
@@ -30,7 +35,8 @@ while True:
     currentlyLive = streamer.is_live
 
     if currentlyLive and not isLive:
-        
+        print(f'{STREAMER} is online!')
+        print('Gathering data....')
         isLive = True
         title = streamer.stream.title
         game_id = streamer.stream.game_id
@@ -43,12 +49,13 @@ while True:
             game = twitch_client.game(id=game_id)
             twitter_hashtags = append_hashtag(game_id, game_name=game.name)
         
-        # post to discord, twitter, facebook
-        discord_hook(url,thumbnail, title, STREAMER, avatar, '9147FF')
+        # post to discord, twitter
+        print("Posting to Discord....")
+        discord_hook(url, thumbnail, title, STREAMER, avatar, '9147FF')
+        print("Posting to Twitter....")
+        twitter.make_post(title, url, twitter_hashtags)
 
     if not currentlyLive and isLive:
         isLive = False
-
-        # add the option to make a post thanking people for watching?
 
     time.sleep(WAIT)
