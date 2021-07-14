@@ -18,7 +18,7 @@ cd twitch-announcer
 
 Next, copy the [`example.env`](./example.env) and populate the proper `.env` file.
 
-- See [here](https://www.streamweasels.com/support/how-to-setup-a-client-id-and-client-secret/) on how to get a Twitch Client ID and Secret
+- See [here](https://www.streamweasels.com/support/how-to-setup-a-client-id-and-client-secret/) on how to get a Twitch Client ID and Secret.
 - See [here](https://realpython.com/twitter-bot-python-tweepy/#creating-twitter-api-authentication-credentials) on how to get your Twitter credentials. 
 - See [here](https://support.discord.com/hc/en-us/articles/228383668-Intro-to-Webhooks) on setting up a Discord webhook.
 
