@@ -25,7 +25,7 @@ games = [
 ]
 
 # the .env file must exists and have the client key and secret populated for this to work.
-twitch = Helix(client_id=os.getenv('TWITCH_CLIENT_KEY'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
+twitch = Helix(client_id=os.getenv('TWITCH_CLIENT_ID'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
 
 data = get_hashtags('hashtags.json')
 

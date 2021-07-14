@@ -18,7 +18,7 @@ WAIT = 60
 
 STREAMER = os.getenv('TWITCH_USERNAME')
 
-twitch_client = twitch.Helix(client_id=os.getenv('TWITCH_CLIENT_KEY'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
+twitch_client = twitch.Helix(client_id=os.getenv('TWITCH_CLIENT_ID'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
 
 isLive = False
 
