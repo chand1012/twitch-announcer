@@ -16,6 +16,8 @@ git clone https://github.com/chand1012/twitch-announcer
 cd twitch-announcer
 ```
 
+### Creating an environment file
+
 Next, copy the [`example.env`](./example.env) and populate the proper `.env` file.
 
 - See [here](https://www.streamweasels.com/support/how-to-setup-a-client-id-and-client-secret/) on how to get a Twitch Client ID and Secret.
