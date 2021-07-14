@@ -48,9 +48,10 @@ while True:
             game = twitch_client.game(id=game_id)
             twitter_hashtags = append_hashtag(game_id, game_name=game.name)
         
-        # post to discord, twitter
-        print("Posting to Discord....")
-        discord_hook(url, thumbnail, title, STREAMER, avatar, '9147FF')
+        # post to discord & twitter
+        if os.getenv('DISCORD_WEBHOOK_URL'):
+            print("Posting to Discord....")
+            discord_hook(url, thumbnail, title, STREAMER, avatar, '9147FF')
         print("Posting to Twitter....")
         twitter.make_post(title, url, twitter_hashtags)
 
