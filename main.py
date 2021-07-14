@@ -3,7 +3,6 @@ import time
 
 import twitch
 import dotenv
-from icecream import ic
 
 from hashtags import get_hashtags, append_hashtag
 from discord_hook import send_hook as discord_hook
