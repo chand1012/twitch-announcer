@@ -30,7 +30,8 @@ while True:
     twitter_hashtags = ''
 
     try:
-        twitch_client = twitch.Helix(client_id=os.getenv('TWITCH_CLIENT_ID'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
+        twitch_client = twitch.Helix(client_id=os.getenv(
+            'TWITCH_CLIENT_ID'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
         streamer = twitch_client.user(STREAMER)
     except requests.exceptions.HTTPError:
         print('There was an error. Waiting and retrying...')
@@ -45,7 +46,8 @@ while True:
         isLive = True
         title = streamer.stream.title
         game_id = streamer.stream.game_id
-        thumbnail = streamer.stream.thumbnail_url.replace('{width}', '1280').replace('{height}', '720')
+        thumbnail = streamer.stream.thumbnail_url.replace(
+            '{width}', '1280').replace('{height}', '720')
         avatar = streamer.profile_image_url
         url = 'https://twitch.tv/' + streamer.login
         if game_id in hashtags:
@@ -53,15 +55,17 @@ while True:
         else:
             game = twitch_client.game(id=game_id)
             twitter_hashtags = append_hashtag(game_id, game_name=game.name)
-        
+
         # post to discord & twitter
         if os.getenv('DISCORD_WEBHOOK_URL'):
             print("Posting to Discord....")
             while True:
                 try:
-                    discord_hook(url, thumbnail, title, STREAMER, avatar, '9147FF')
+                    discord_hook(url, thumbnail, title,
+                                 STREAMER, avatar, '9147FF')
                 except requests.exceptions.HTTPError:
-                    print('There was an error trying to post to discord, waiting and retrying...')
+                    print(
+                        'There was an error trying to post to discord, waiting and retrying...')
                     time.sleep(60)
                     continue
                 break
@@ -69,7 +73,7 @@ while True:
         try:
             twitter.make_post(title, url, twitter_hashtags)
         except tweepy.error.TweepError:
-            print('Duplicate tweet, skipping.') 
+            print('Duplicate tweet, skipping.')
 
     if not currentlyLive and isLive:
         isLive = False

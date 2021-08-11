@@ -12,9 +12,9 @@ dotenv.load_dotenv()
 # add all the games you play here and run the script
 # their names can be found on their twitch pages
 games = [
-    'Battlefield 4', 
-    'Halo: The Master Chief Collection', 
-    "Tom Clancy's Rainbow Six Siege", 'Overwatch', 
+    'Battlefield 4',
+    'Halo: The Master Chief Collection',
+    "Tom Clancy's Rainbow Six Siege", 'Overwatch',
     'Minecraft',
     'Call of Duty: Black Ops Cold War',
     'Battlefield 1',
@@ -25,7 +25,8 @@ games = [
 ]
 
 # the .env file must exists and have the client key and secret populated for this to work.
-twitch = Helix(client_id=os.getenv('TWITCH_CLIENT_ID'), client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
+twitch = Helix(client_id=os.getenv('TWITCH_CLIENT_ID'),
+               client_secret=os.getenv('TWITCH_CLIENT_SECRET'))
 
 data = get_hashtags('hashtags.json')
 
@@ -41,9 +42,9 @@ for game_name in games:
         continue
 
     default = re.sub(r'[^A-Za-z0-9]+', '', game.name)
-    # add any additional hashtags that you want on all 
+    # add any additional hashtags that you want on all
     # games after {default}
     # add any hashtag per-game to 'hashtags.json'
-    data[game.id] = f'#{default} ' 
+    data[game.id] = f'#{default} '
 
 set_hashtags(data, 'hashtags.json')

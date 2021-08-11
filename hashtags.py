@@ -2,6 +2,7 @@ import json
 import os
 import re
 
+
 def get_hashtags(filename='hashtags.json'):
     data = {}
     if os.path.exists(filename):
@@ -9,9 +10,11 @@ def get_hashtags(filename='hashtags.json'):
             data = json.loads(f.read())
     return data
 
+
 def set_hashtags(data, filename='hashtags.json'):
     with open(filename, 'w') as f:
         f.write(json.dumps(data, indent=4))
+
 
 def append_hashtag(game_id, tags=None, game_name=None, filename='hashtags.json'):
     data = get_hashtags(filename=filename)
