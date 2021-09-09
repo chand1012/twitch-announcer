@@ -19,3 +19,4 @@ tweepy==3.10.0
 twitch-python==0.0.19
 urllib3==1.26.6
 wrapt==1.12.1
+instabot==0.117.0

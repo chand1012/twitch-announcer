@@ -6,6 +6,8 @@ import requests
 import tweepy
 import twitch
 
+from instabot import Bot
+
 import twitter
 from discord_hook import send_hook as discord_hook
 from hashtags import append_hashtag, get_hashtags
@@ -74,6 +76,18 @@ while True:
             twitter.make_post(title, url, twitter_hashtags)
         except tweepy.error.TweepError:
             print('Duplicate tweet, skipping.')
+
+        # post to instagram
+        if os.getenv('INSTAGRAM_USERNAME') and os.getenv('INSTAGRAM_PASSWORD'):
+            try:
+                bot = Bot()
+                bot.login(username=os.getenv('INSTAGRAM_USERNAME'),password=os.getenv('INSTAGRAM_PASSWORD'))
+                twitch_username = os.getenv("TWITCH_USERNAME");
+                bot.upload_photo("img.jpg", caption=F"If you see this I am live right now! https://www.twitch.tv/{twitch_username}")
+
+            except:
+                print("instapost did not work")
+
 
     if not currentlyLive and isLive:
         isLive = False
